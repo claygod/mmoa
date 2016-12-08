@@ -22,6 +22,7 @@ type Waitings struct {
 	Arr   map[tools.TypeCID]*Waiting
 }
 
+// Cleaner - execution of cleaning expired cycle aggregates
 func (w *Waitings) Cleaner() {
 	c := time.Tick(tools.CleanerTimerSec * time.Nanosecond)
 	for _ = range c {
@@ -37,7 +38,7 @@ func (w *Waitings) Cleaner() {
 	}
 }
 
-// NewWaiting - add a new aggregate
+// NewWaiting - add a new waiting
 func (w *Waitings) NewWaiting(msg *tools.Message, duration tools.TypeTIME, messages map[string]*tools.Message, ch chan *tools.Message) error {
 	w.Lock()
 	if _, ok := w.Arr[msg.MsgCid]; ok {
