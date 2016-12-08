@@ -13,8 +13,6 @@ import (
 	"github.com/claygod/mmoa/tools"
 )
 
-//import "fmt"
-
 // Waitings structure
 type Waitings struct {
 	sync.Mutex
