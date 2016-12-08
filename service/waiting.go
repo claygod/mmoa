@@ -37,7 +37,7 @@ func (w *Waitings) Cleaner() {
 	}
 }
 
-// newWaiting - add a new aggregate
+// NewWaiting - add a new aggregate
 func (w *Waitings) NewWaiting(msg *tools.Message, duration tools.TypeTIME, messages map[string]*tools.Message, ch chan *tools.Message) error {
 	w.Lock()
 	if _, ok := w.Arr[msg.MsgCid]; ok {
@@ -61,6 +61,7 @@ func (w *Waitings) NewWaiting(msg *tools.Message, duration tools.TypeTIME, messa
 	return nil
 }
 
+// MsgToWaiting - add msg to waiting
 func (w *Waitings) MsgToWaiting(msg *tools.Message) (chan *tools.Message, *tools.Message) {
 	w.Lock()
 	wg, ok := w.Arr[msg.MsgCid]
