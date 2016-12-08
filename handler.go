@@ -14,8 +14,6 @@ import (
 	"github.com/claygod/mmoa/tools"
 )
 
-// import "fmt"
-
 // NewHandler - create a new Handler
 func NewHandler(path string, chBus chan *tools.Message, aggregator *support.Aggregator, cid *Cid) *Handler {
 	h := &Handler{
@@ -45,22 +43,26 @@ type Handler struct {
 	view         *View
 }
 
+// StatusCodeOf - the answer to what theme will form status
 func (h *Handler) StatusCodeOf(theme tools.TypeTHEME) *Handler {
 	h.view.StatusCodeOf(theme)
 	return h
 }
 
+// Service - add the service to the handler
 func (h *Handler) Service(hp *tools.HandlerPart) *Handler {
 	h.view.TemplateService(hp.PartName, hp.PartTheme, hp.PartTemplate)
 	h.parts = append(h.parts, hp)
 	return h
 }
 
+// ContentType - for output
 func (h *Handler) ContentType(ct string) *Handler {
 	h.view.ContentType(ct)
 	return h
 }
 
+// Do - launch handler
 func (h *Handler) Do(w http.ResponseWriter, req *http.Request) {
 	w.Header().Del("Content-Type")
 	w.Header().Set("Content-Type", h.contentType)
