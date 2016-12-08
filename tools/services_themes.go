@@ -13,7 +13,7 @@ func NewThemes() *Themes {
 	return t
 }
 
-// Theme structure
+// Themes structure
 type Themes struct {
 	Service    ListServices
 	Attach     ListAttach
