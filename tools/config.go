@@ -7,12 +7,15 @@ package tools
 //import "errors"
 import "time"
 
-// Types
 type (
-	TypeCID     uint64
-	TypeTHEME   string
+	// TypeCID - correlation identifier
+	TypeCID uint64
+	// TypeTHEME - the theme messages in service
+	TypeTHEME string
+	// TypeSERVICE - the name of the service
 	TypeSERVICE string
-	TypeTIME    int64
+	// TypeTIME - Unix time
+	TypeTIME int64
 )
 
 // Conf
