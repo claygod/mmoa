@@ -6,13 +6,6 @@ package tools
 
 import "reflect"
 
-//import "github.com/claygod/mmoa/tools"
-
-// import	"runtime"
-//import "fmt"
-
-// import "errors"
-
 // NewThemes - create a new Cid
 func NewThemes() *Themes {
 	t := &Themes{}
@@ -87,8 +80,4 @@ func (t *Themes) genThemeName() {
 			v3.SetString(t2.Field(i2).Name)
 		}
 	}
-	//fmt.Print("\n - t.Article.Article=", t.Article.Article)
-	//fmt.Print("\n - t.Service.Article=", t.Service.Article)
-	//fmt.Print("\n - t.Service.Aggregator=", t.Service.Aggregator)
-	//return t
 }
