@@ -31,11 +31,13 @@ type Controller struct {
 	chBus      chan *tools.Message
 }
 
+// Handler - create a new handler
 func (c *Controller) Handler(template string) *Handler {
 	h := NewHandler(template, c.chBus, c.aggregator, c.cid)
 	return h
 }
 
+// AddService - add the service to the handler
 func (c *Controller) AddService(nameService tools.TypeSERVICE, chIn chan *tools.Message) {
 	c.bus.Set(nameService, chIn)
 }
