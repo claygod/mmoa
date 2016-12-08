@@ -62,7 +62,7 @@ Initially, having read clever books, I have created a very complex and intricate
 
 # Quick start
 
-As part of the framework has a ready example that clearly demonstrates the MMOA the example of a simple website. Navigate to the folder example, compile and run the application. The result of playing in the browser at *localhost*. As a router, I used my design *Bxog*, but you can use any router of your choice. Standardization is carried out regular *html/template* library.
+As part of the framework has a ready *example* that clearly demonstrates the MMOA the example of a simple website. Navigate to the folder example, compile and run the application. The result of playing in the browser at *localhost*. As a router, I used my design *Bxog*, but you can use any router of your choice. Standardization is carried out regular *html/template* library.
 
 ![alt tag](https://github.com/claygod/mmoa/blob/master/mmoa2.gif?raw=true)
 
