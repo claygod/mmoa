@@ -1,0 +1,41 @@
+body {
+	margin: 0 auto;
+	width: 640px;
+	font:17px/20px Arial,Helvetica,sans-serif;
+	overflow-y: scroll;
+}
+a {
+	color: #777;
+}
+#header {
+	padding: 10px;
+	text-align: center;
+}
+#content {
+	margin-left: 230px;
+}
+#content h2{
+	color: #E6B03E;
+}
+#sidebar {
+	padding: 10px;
+	background: #B44E29;
+	float: left;
+	width: 180px;
+}
+#sidebar ul {
+	padding: 0px;
+}
+#sidebar li {
+	padding: 5px;
+	list-style-type: none;
+	list-style-position: inside;
+}
+#sidebar a {
+	color: #fff;
+	text-decoration: none;
+}
+#sidebar a:hover {
+	color: #ccc;
+	text-decoration: none;
+}
