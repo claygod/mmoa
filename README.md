@@ -199,3 +199,70 @@ In the catalog *example/data*  create a file *date.html* with the string *{{.Day
 </body>
 </html>
 ```
+
+### Change application
+
+Now we have to add a new library of files to import, create a channel for it, create a new structure and add a line in the initialization handler:
+```go
+package main
+
+// Monolithic Message-Oriented Application (MMOA)
+// Application
+// Copyright  2016 Eduard Sesigin. All rights reserved. Contacts: <claygod@yandex.ru>
+
+import (
+	"github.com/claygod/Bxog"
+	"github.com/claygod/mmoa"
+	"github.com/claygod/mmoa/example/article"
+	"github.com/claygod/mmoa/example/calendar"
+	"github.com/claygod/mmoa/example/menu"
+	"github.com/claygod/mmoa/tools"
+)
+
+const chLen int = 1000
+
+func main() {
+	chBus := make(chan *tools.Message, chLen)
+	chMenu := make(chan *tools.Message, chLen)
+	chArticle := make(chan *tools.Message, chLen)
+	chCalendar := make(chan *tools.Message, chLen)
+
+	the := tools.NewThemes()
+	app := mmoa.NewController(chBus)
+
+	sm := menu.NewServiceMenu(chMenu, chBus)
+	app.AddService(sm.Name, chMenu)
+	sa := article.NewServiceArticle(chArticle, chBus)
+	app.AddService(sa.Name, chArticle)
+	sc := calendar.NewServiceCalendar(chCalendar, chBus)
+	app.AddService(sc.Name, chCalendar)
+
+	hPage := app.Handler("./data/template.html").
+	ContentType("text/html; charset=UTF-8").
+	Service(tools.NewPart(sm.Name).Theme(the.Menu.Sitemap).Template("./data/sitemap.html")).
+	Service(tools.NewPart(sa.Name).Theme(the.Article.Record).Template("./data/record.html")).
+	Service(tools.NewPart(sc.Name).Theme(the.Calendar.Date).Template("./data/date.html")).
+	StatusCodeOf(the.Article.Record)
+
+	m := bxog.New()
+	m.Add("/:id", hPage.Do)
+	m.Start(":80")
+}
+```
+# Performance
+
+As we have made clear, despite the fact that the application is compiled, MMOA, it is not the best solution for the problems that have the main and decisive factor is speed, because in the process of service applications do not just send messages to each other through the channels, which naturally It is a brake. To at least roughly understand how productive MMOA purely reference held a simple ab tests running example of the *example* folder
+
+- ab -n 10000 -c 1 --> 3127 r/s
+- ab -n 30000 -c 100 --> 6373 r/s
+
+Following good benchmark indicates that an application running only with the service *article* is much faster than with the *menu*, which sends the request to the *article*, waiting for him, receives a response, and only then send its response to the aggregator. (Note: In parallel mode the difference is somewhat reduced.)
+
+- BenchmarkOnlyArticle-4 50000 24722 ns/op
+- BenchmarkArticleAndMenu-4 30000 43404 ns/op
+- BenchmarkOnlyArticleParallel-4 100000 13831 ns/op
+- BenchmarkArticleAndMenuParallel-4 100000 20752 ns/op
+
+# About
+
+Most likely in many MMOA something familiar: the patterns mikroservisy, SOA, MQ, etc. This is good and I can assure you, MMOA does not purport to overthrow or assigning themselves another's laurels. It is only a tool, the idea that you might be interested in. I would add only one thing IMHO - largely MMOA written under the influence of *Golang*, which I think is quite interesting and very suitable for the development of a variety of applications, and language authors thank for their work.
