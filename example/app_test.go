@@ -11,8 +11,8 @@ import (
 
 	"github.com/claygod/Bxog"
 	"github.com/claygod/mmoa"
-	"github.com/claygod/mmoa/examples/article"
-	"github.com/claygod/mmoa/examples/menu"
+	"github.com/claygod/mmoa/example/article"
+	"github.com/claygod/mmoa/example/menu"
 	"github.com/claygod/mmoa/tools"
 )
 
