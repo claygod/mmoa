@@ -30,6 +30,60 @@ In the sample application created two services:
 
 For convenience and ease of service creation as part of the application, some of the MMOA divided into separate libraries.
 
+### tools
+
+This library is needed to create both applications and services.
+
+- *config.go* - file contains the types used in the application, setting timers and status
+- *message.go* - basic and single unit of information exchange between services, the message content is stored in *MsgCtx*, everything else is an envelope.
+- *themes.go* - structure with a list of all the services in the application, and they have taken the messages. The structure is designed specifically for convenience (*IDE* will not write the name of a non-existent service or not it supports the message subject).
+- *exchanger.go* - stores all data structures in a format which services can communicate with each other in this file
+
+### service
+
+This library is used to create auxiliary services and is required when writing custom services.
+
+- *logger.go* - a simple library to output logs to the console
+- *service.go* - service basis, listening to the input port, if the messages have a suitable waiting, defines it there, if not, tries to invoke a method - reserved for the subject of the message, if not, sends a message to the trash.
+- *waiting.go* - keeps the unit waiting for the arrival of messages, if aggregate of filled, it is sent to the appropriate method, if the unit is out of date, it is sent to the trash, and waiting is removed.
+- *aggregate.go* - collects messages from specified *CID* (correlation identifier), after adding the number of posts gives more expected messages.
+
+### support
+
+This library contains the services aggregator and trash, as well as the bus for messaging.
+
+- *aggregator.go* - is an analogue of *waiting*, with the difference that here the units accumulate messages to be sent to the handler, and in contrast to the waiting units here come from the handlers.
+- *trash.go* - here are sent messages to the wrong address, incorrect, and the overdue units.
+- *bus.go* - Bus receives messages and forwards them to the destination channels. If the recipient is not available, a message is sent to the trash.
+
+### root MMOA
+
+These files are the core MMOA, and outside are not used.
+
+- *cid.go* - correlation identifier, the correlation *ID* to help identify the services posts.
+- *handler.go* - request handler creates unit for the request and sends the request messages to the right services.
+- *controller.go* - conduct an initial application provisioning, and creates a service bus services - aggregator and trash.
+- *view.go* - is responsible for standardization. It contains templates for answers and services for the page.
+
+# How to add the service to MMOA
+
+For the set of words can be quite unclear how easy/difficult to use the concept described MMOA, so a simple example will describe the process of adding a new service. For example, we wanted to on the page are always displayed date.
+
+### Update the list of services and themes
+
+The *tools/services_themes.go* add structure
+```go
+// ThemeCalendar structure
+type ThemeCalendar struct {
+	Date TypeTHEME
+}
+```
+
+
+
+
+
+
 # Usage
 
 An example of using the MMOA:
