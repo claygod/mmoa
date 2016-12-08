@@ -7,12 +7,6 @@ package support
 import "sync"
 import "github.com/claygod/mmoa/tools"
 
-//import "fmt"
-
-//import "time"
-
-//import "sync/atomic"
-
 // NewBus - create a new Bus
 func NewBus(ch chan *tools.Message) *Bus {
 	b := &Bus{
@@ -35,14 +29,17 @@ type Bus struct {
 	numWorkers int32
 }
 
+// Set - add new destination
 func (b *Bus) Set(name tools.TypeSERVICE, ChIn chan *tools.Message) {
 	b.services[name] = ChIn
 }
 
+// Del - delete destination
 func (b *Bus) Del(name tools.TypeSERVICE) {
 	delete(b.services, name)
 }
 
+// Worker - execution cycle
 func (b *Bus) Worker() {
 	for {
 		msgIn := <-b.chIn

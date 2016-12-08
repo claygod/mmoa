@@ -4,7 +4,6 @@ package support
 // Trash
 // Copyright © 2016 Eduard Sesigin. All rights reserved. Contacts: <claygod@yandex.ru>
 
-//import "fmt"
 import "github.com/claygod/mmoa/tools"
 import "github.com/claygod/mmoa/service"
 
