@@ -10,8 +10,6 @@ import (
 	"github.com/claygod/mmoa/tools"
 )
 
-//import "fmt"
-
 // NewService - create a new Service
 func NewService(nameServiceMenu tools.TypeSERVICE, chIn chan *tools.Message, chBus chan *tools.Message) Service {
 	wts := &Waitings{
@@ -46,6 +44,7 @@ type Service struct {
 	Logger     *Logger
 }
 
+// Start - service launch
 func (s *Service) Start() {
 	go s.worker()
 	go s.WaitingFor.Cleaner()
@@ -54,12 +53,9 @@ func (s *Service) Start() {
 func (s *Service) worker() {
 	for {
 		msg := <-s.ChIn
-		//s.Lock()
 		s.WaitingFor.Lock()
-		//defer s.WaitingFor.Unlock()
 		wg, ok := s.WaitingFor.Arr[msg.MsgCid]
 		s.WaitingFor.Unlock()
-		//s.Unlock()
 		if ok && wg != nil {
 			s.addMessage(msg)
 		} else {
@@ -68,6 +64,7 @@ func (s *Service) worker() {
 	}
 }
 
+// Work - method that is called in the operating cycle (can be changed)
 func (s *Service) Work(msg *tools.Message) {
 	if m, ok := s.Methods[msg.MsgTheme]; ok {
 		go m(msg)
