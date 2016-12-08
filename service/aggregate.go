@@ -50,11 +50,13 @@ func (a *Aggregate) Add(msg *tools.Message) (int, error) {
 	return a.Counter, nil
 }
 
+// GenKey - generate the key from the service name and the theme
 func (a *Aggregate) GenKey(service tools.TypeSERVICE, theme tools.TypeTHEME) string {
 	keyStr := fmt.Sprintf(`%s/%s`, string(service), string(theme))
 	return keyStr
 }
 
+// Lock - mutex analogue lock
 func (a *Aggregate) Lock() bool {
 	for {
 		if a.Hasp == 0 && atomic.CompareAndSwapInt32(&a.Hasp, 0, 1) {
@@ -65,6 +67,7 @@ func (a *Aggregate) Lock() bool {
 	return true
 }
 
+// Unlock - mutex analogue unlock
 func (a *Aggregate) Unlock() bool {
 	for {
 		if a.Hasp == 1 && atomic.CompareAndSwapInt32(&a.Hasp, 1, 0) {
