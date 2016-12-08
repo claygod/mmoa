@@ -1,5 +1,8 @@
 # MMOA
 
+[![API documentation](https://godoc.org/github.com/claygod/mmoa?status.svg)](https://godoc.org/github.com/claygod/mmoa)
+[![Go Report Card](https://goreportcard.com/badge/github.com/claygod/mmoa)](https://goreportcard.com/report/github.com/claygod/mmoa)
+
 
 # Usage
 
