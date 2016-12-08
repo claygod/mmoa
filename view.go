@@ -32,20 +32,24 @@ type View struct {
 	contentType  string
 }
 
+// ContentType - for output
 func (v *View) ContentType(ct string) {
 	v.contentType = ct
 }
 
+// StatusCodeOf - the answer to what theme will form status
 func (v *View) StatusCodeOf(theme tools.TypeTHEME) {
 	v.statusCodeOf = theme
 }
 
+// TemplatePage - Loading of the page template
 func (v *View) TemplatePage(path string) {
 	t, _ := ioutil.ReadFile(path)
 	tpl, _ := template.New(path).Parse(string(t))
 	v.tpl = tpl
 }
 
+// TemplateService - Loading of the service template
 func (v *View) TemplateService(service tools.TypeSERVICE, theme tools.TypeTHEME, path string) {
 	t, _ := ioutil.ReadFile(path)
 	keyStr := string(theme)
@@ -56,6 +60,7 @@ func (v *View) TemplateService(service tools.TypeSERVICE, theme tools.TypeTHEME,
 	v.templates[service][theme] = tpl
 }
 
+// ProcessingAggregate - processing the resulting aggregate, messages are displayed on templates
 func (v *View) ProcessingAggregate(messages map[string]*tools.Message, statusCode int) (map[string]template.HTML, int) {
 	var sCode int = tools.StatusNotFound
 	var title bytes.Buffer
