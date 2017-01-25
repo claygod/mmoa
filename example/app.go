@@ -5,7 +5,7 @@ package main
 // Copyright © 2016 Eduard Sesigin. All rights reserved. Contacts: <claygod@yandex.ru>
 
 import (
-	"github.com/claygod/BxogV2"
+	bx "github.com/claygod/BxogV2"
 	"github.com/claygod/mmoa"
 	"github.com/claygod/mmoa/example/article"
 	"github.com/claygod/mmoa/example/menu"
@@ -33,7 +33,7 @@ func main() {
 		Service(tools.NewPart(sa.Name).Theme(the.Article.Record).Template("./data/record.html")).
 		StatusCodeOf(the.Article.Record)
 
-	m := bxogv2.New()
+	m := bx.New()
 	m.Add("/:id", hPage.Do)
 	m.Start(":80")
 }
