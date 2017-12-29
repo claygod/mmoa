@@ -265,4 +265,4 @@ Following good benchmark indicates that an application running only with the ser
 
 # About
 
-Most likely in many MMOA something familiar: the patterns mikroservisy, SOA, MQ, etc. This is good and I can assure you, MMOA does not purport to overthrow or assigning themselves another's laurels. It is only a tool, the idea that you might be interested in. I would add only one thing IMHO - largely MMOA written under the influence of *Golang*, which I think is quite interesting and very suitable for the development of a variety of applications, and language authors thank for their work.
+Most likely in many MMOA something familiar: the patterns mikroservice, SOA, MQ, etc. This is good and I can assure you, MMOA does not purport to overthrow or assigning themselves another's laurels. It is only a tool, the idea that you might be interested in. I would add only one thing IMHO - largely MMOA written under the influence of *Golang*, which I think is quite interesting and very suitable for the development of a variety of applications, and language authors thank for their work.
